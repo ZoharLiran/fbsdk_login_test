@@ -11,9 +11,18 @@ import {
   Text,
   View
 } from 'react-native';
+const FBSDK = require('react-native-fbsdk');
+const {
+  AccessToken,
+} = FBSDK;
 
 class Troop extends Component {
   render() {
+    AccessToken.getCurrentAccessToken().then(
+      function(result) {
+        console.log('current token = '+result);
+      }
+    );
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
