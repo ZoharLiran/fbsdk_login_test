@@ -13,6 +13,10 @@ import {
 } from 'react-native';
 const FBSDK = require('react-native-fbsdk');
 const {
+  LoginButton,
+} = FBSDK;
+
+const {
   AccessToken,
 } = FBSDK;
 
@@ -25,6 +29,20 @@ class Troop extends Component {
     );
     return (
       <View style={styles.container}>
+        <LoginButton
+          publishPermissions={["publish_actions"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("login has error: " + result.error);
+              } else if (result.isCancelled) {
+                alert("login is cancelled.");
+              } else {
+                alert("login has finished with permissions: " + result.grantedPermissions)
+              }
+            }
+          }
+          onLogoutFinished={() => alert("logout.")}/>
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>
